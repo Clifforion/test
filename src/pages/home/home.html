@@ -1,14 +1,48 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content>
+		<ion-row>
+		<ion-col col-sm></ion-col>
+		<ion-col  text-center col-auto >
+	 	<img padding-left padding-top   class="head" src="assets/Logo.png"/>
+	 	</ion-col>
+	 	<ion-col></ion-col>
+	 </ion-row>	
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+		<ion-list>
+			  <ion-item>
+			    <ion-label stacked>Correo</ion-label>
+			    <ion-input type="email" [(ngModel)]="datos.email" ></ion-input>
+			  </ion-item>
+
+			  <ion-item>
+			    <ion-label stacked>Contraseña</ion-label>
+			    <ion-input type="password" [(ngModel)]="datos.password"></ion-input>
+			  </ion-item>
+		</ion-list>
+	<ion-row>
+		<ion-col width="20">
+		</ion-col>
+		<ion-col width="60">
+		<button ion-button (click)="login()" round block  color="primary" [disabled]=" datos.email.length < 9 || datos.password.lenght < 6">Ingresar</button>	
+		</ion-col>
+		<ion-col width="20">
+		</ion-col>
+	</ion-row>
+
+
+
+	<ion-row>
+		<ion-col width="100">
+			<p text-center>¿Aún no tienes cuenta? Registrate</p>
+		</ion-col>
+	</ion-row>
+	<ion-row>
+		<ion-col width="20">
+		</ion-col>
+		<ion-col width="60">
+		<button ion-button (click)="registro()" round block  color="primary" >Registrar</button>	
+		</ion-col>
+		<ion-col width="20">
+		</ion-col>
+	</ion-row>
+
 </ion-content>

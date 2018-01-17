@@ -1,0 +1,39 @@
+<!--
+  Generated template for the DetallePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+  	<ion-buttons end>
+      <button ion-button>
+		{{notificacion.tipo}}
+      </button>
+    </ion-buttons>
+    <ion-title>Detalles</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-card>  
+     <img *ngIf="notificacion.imagen" class="img" width="60%" [src]="'http://lander.arevolution.com.mx/notificaciones/'+notificacion.imagen"
+  imageViewer/>
+
+	   <img *ngIf="!notificacion.imagen" class="img" width="60%" src="assets/Logo.png" imageViewer/>
+
+
+	  <ion-card-content>
+	    <ion-card-title>
+	     <h2>{{notificacion.titulo | uppercase}} </h2>
+	      </ion-card-title>
+	    <p>{{notificacion.mensaje}}</p>
+	  </ion-card-content>
+
+    <button (click)="encuesta(idR)" ion-button color="primary" *ngIf="notificacion.tipo=='encuesta'">Contestar</button>
+    </ion-card>
+
+</ion-content>

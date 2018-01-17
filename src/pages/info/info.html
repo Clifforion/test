@@ -1,0 +1,86 @@
+<ion-header>
+ 
+  <ion-navbar color="primary">
+    <ion-title>Informacíon personal</ion-title>
+    	<ion-buttons end>
+    		<button (click)="salir()" ion-button>Salir <br>
+    		     <ion-icon name="exit"></ion-icon>
+    		</button>
+    	</ion-buttons>
+      
+      <ion-buttons>
+        <button ion-button
+                (click)="activar()">Editar 
+        <ion-icon name="md-create"></ion-icon>
+          
+        </button>
+      </ion-buttons>
+
+  </ion-navbar>
+  
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+  <ion-item>
+
+    <ion-avatar item-start>
+      <ion-icon name="person"></ion-icon>
+    </ion-avatar>
+    <h2>Nombre</h2>
+    <p>{{datos.name}}</p>
+  </ion-item>
+
+<ion-item>
+  <ion-avatar item-start>
+     <ion-icon name="mail"></ion-icon>
+    </ion-avatar>
+    <h2>Correo electronico</h2>
+    <p>{{datos.email}}</p>
+  </ion-item>
+
+  <ion-item>
+  <ion-avatar item-start>
+    <ion-icon name="arrow-dropright"></ion-icon>
+    </ion-avatar>
+    <h2>Lote</h2>
+    <p>{{datos.lote}}</p>
+  </ion-item>
+
+  <ion-item>
+  <ion-avatar item-start>
+<ion-icon name="arrow-dropright"></ion-icon>
+    </ion-avatar>
+    <h2>Manzana</h2>
+    <p>{{datos.manzana}}</p>
+  </ion-item>
+
+
+    <ion-item>
+      <ion-avatar item-start>
+       <ion-icon name="calendar"></ion-icon>
+        </ion-avatar>
+        <h2>Fecha de entrega</h2>
+        <p>{{datos.fechaentrega}}</p>
+  </ion-item>
+
+   <ion-item [class.hide]="!activo">
+      <ion-avatar item-start>
+       <ion-icon name="key"></ion-icon>
+        </ion-avatar>
+    <ion-input [(ngModel)]="pass.password" placeholder="Nueva Contraseña" type="text"></ion-input>
+  </ion-item>
+
+    <ion-item [class.hide]="!activo">
+      <ion-avatar item-start>
+       <ion-icon name="key"></ion-icon>
+        </ion-avatar>
+    <ion-input [(ngModel)]="pass.password_confirmation" placeholder="Confirmar Contraseña" type="text"></ion-input>
+  </ion-item>
+
+  <button [class.hide]="!activo" ion-button round block (click)="enviar()" color="primary" >Guardar</button>  
+
+</ion-list>
+
+</ion-content>

@@ -1,0 +1,52 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Reporte</ion-title>
+    <ion-buttons end>
+        <button (click)="salir()" ion-button>Salir <br>
+             <ion-icon name="exit"></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+<ion-list>
+
+  <ion-item>
+    <ion-label floating>Número de celular</ion-label>
+    <ion-input autocomplete="on" autocorrect="on"  [attr.maxlength]="10" autocomplete="on" type="tel"  [(ngModel)]="datos.celular"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Horario de visita(Sugerido)</ion-label>
+     <ion-select [(ngModel)]="datos.horario">
+    <ion-option value="9:00am - 12:00pm">9:00AM - 12:00PM</ion-option>
+    <ion-option value="3:00pm - 5:00pm">3:00PM - 5:00PM</ion-option>
+  </ion-select>
+  </ion-item>
+
+  <ion-item>
+  <ion-label>Garantías</ion-label>
+  <ion-select [(ngModel)]="datos.garantia_id">
+    <ion-option *ngFor="let garantia of garantias" [value]="garantia.id">{{garantia.partida}}</ion-option>
+  </ion-select>
+</ion-item>
+
+
+   <ion-item>
+    <ion-label floating>Detalle Del Reporte</ion-label>
+    <ion-textarea  rows=5 [(ngModel)]="datos.detalles"></ion-textarea>
+    
+  </ion-item>
+
+    <button  ion-button block (click)="reporte()" >Enviar</button>
+
+
+
+</ion-list>
+
+
+</ion-content>

@@ -1,0 +1,5 @@
+<ion-tabs>
+    <ion-tab [root]="infoRoot" (ionSelect)="getNumber()" tabTitle="Info" tabIcon="contact" ></ion-tab>
+    <ion-tab [root]="reporteRoot" (ionSelect)="getNumber()" tabTitle="Reporte" tabIcon="construct"></ion-tab>
+    <ion-tab [tabBadge]= "numero > 0 ? numero: null" tabBadgeStyle="primary" [root]="promosRoot" (ionSelect)="getNumber()" tabTitle="Avisos" tabIcon="notifications"></ion-tab>
+</ion-tabs>
