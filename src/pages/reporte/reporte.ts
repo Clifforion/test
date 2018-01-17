@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { App, NavController, AlertController,NavParams ,ToastController} from 'ionic-angular';
+import { App, NavController, AlertController,NavParams ,ToastController,LoadingController} from 'ionic-angular';
 import {Http, Headers} from '@angular/http';
 import { NativeStorage } from '@ionic-native/native-storage';
 import {HomePage} from '../home/home';
@@ -25,7 +25,8 @@ error:any={};
               public storage:NativeStorage,
               public http:Http,
               public navCtrl: NavController,
-              public navParams: NavParams){
+              public navParams: NavParams,
+              public loadinCtrl: LoadingController){
   }
 
 
@@ -53,29 +54,44 @@ error:any={};
           if(this.datos.celular.length <10) {
             this.Valida("El número telefónico debe ser de 10 dígitos");
           }else{
-  		let url="https://lander.arevolution.com.mx/api/clientes/"+this.id+"/reportes";
-	   let headers = new Headers();
-                    headers.append('content-type','application/json');
-                    this.http.post(url,JSON.stringify(this.datos),{headers:headers}).map(res => res.json())
-                      .subscribe(data=>
-                        {
-                          console.log(data);
-                          this.correcto();
-                          this.limpia();  
-                        },
-                     (err =>{
-                       this.error = err.status;
-                       console.log(this.error);
-                      if(this.error == 422 ) {
-                       this.incorrecto("Vigencia vencida","Estimado cliente su garantía ya no cuenta con vigencia de acuerdo al Manual de Usuario."+
-                       "<br><h6>Lo invitamos a descargar el Manual de Mantenimiento.</h6>");
-                      }else{
-                       this.incorrecto("Estimado usuario","Hubo un error intente mas tarde");
-                      }
 
-                     }));
-                  }
-                  }
+            let loading = this.loadinCtrl.create({
+              content:'Enviando Reporte, espere por favor...'
+            });
+
+            loading.present();
+
+            setTimeout(()=>{
+              let url="https://lander.arevolution.com.mx/api/clientes/"+this.id+"/reportes";
+             let headers = new Headers();
+                            headers.append('content-type','application/json');
+                            this.http.post(url,JSON.stringify(this.datos),{headers:headers}).map(res => res.json())
+                              .subscribe(data=>
+                                {
+                                  console.log(data);
+                                  this.correcto();
+                                  this.limpia();
+                                },
+                             (err =>{
+                               this.error = err.status;
+                               console.log(this.error);
+                              if(this.error == 422 ) {
+                               this.incorrecto("Vigencia vencida","Estimado cliente su garantía ya no cuenta con vigencia de acuerdo al Manual de Usuario."+
+                               "<br><h6>Lo invitamos a descargar el Manual de Mantenimiento.</h6>");
+                              }else{
+                               this.incorrecto("Estimado usuario","Hubo un error intente mas tarde");
+                              }
+
+                             }));
+              loading.dismiss();
+            },4500);
+
+
+
+                        }
+
+
+                        }
                 }
 
 
