@@ -20,28 +20,28 @@ datos={"celular":"","detalles":"","horario":"","garantia_id":""}
 error:any={};
 
   constructor(public app:App,
-              public toast:ToastController,  
-              public alertCtrl:AlertController, 
+              public toast:ToastController,
+              public alertCtrl:AlertController,
               public storage:NativeStorage,
               public http:Http,
-              public navCtrl: NavController, 
+              public navCtrl: NavController,
               public navParams: NavParams){
   }
 
- 
+
 
   ionViewDidLoad() {
     this.storage.getItem('id').then((json)=>{
       if(json) {
           this.id = JSON.parse(json);
-         
+
       }
     });
 
     this.getGarantias();
   }
 
-  
+
 
 
 
@@ -49,29 +49,30 @@ error:any={};
     console.log(this.datos);
       if (this.datos.celular=="" || this.datos.detalles==="" || this.datos.horario=="" || this.datos.garantia_id=="") {
           this.Valida("Debe llenar los campos");
-        }else{        
+        }else{
           if(this.datos.celular.length <10) {
             this.Valida("El número telefónico debe ser de 10 dígitos");
           }else{
   		let url="https://lander.arevolution.com.mx/api/clientes/"+this.id+"/reportes";
 	   let headers = new Headers();
                     headers.append('content-type','application/json');
-                    this.http.post(url,JSON.stringify(this.datos),{headers:headers}).map(res => res.json()).subscribe(data=>{
-                      console.log(data);
-                      this.correcto();
-                      this.limpia();
-
-                    },
+                    this.http.post(url,JSON.stringify(this.datos),{headers:headers}).map(res => res.json())
+                      .subscribe(data=>
+                        {
+                          console.log(data);
+                          this.correcto();
+                          this.limpia();  
+                        },
                      (err =>{
                        this.error = err.status;
                        console.log(this.error);
                       if(this.error == 422 ) {
-                       this.incorrecto("Vigencia vencida","Estimado cliente su garantía ya no cuenta con vigencia de acuerdo al Manual de Usuario.Para más información comunicarse a Postventa al " +  
-                        "cel.<a>6441730517</a></g>.<br><h6>Lo invitamos a descargar el Manual de Mantenimiento.</h6>"); 
+                       this.incorrecto("Vigencia vencida","Estimado cliente su garantía ya no cuenta con vigencia de acuerdo al Manual de Usuario."+
+                       "<br><h6>Lo invitamos a descargar el Manual de Mantenimiento.</h6>");
                       }else{
                        this.incorrecto("Estimado usuario","Hubo un error intente mas tarde");
                       }
-                      
+
                      }));
                   }
                   }
@@ -134,6 +135,3 @@ Valida(msg) {
         this.app.getRootNav().setRoot(HomePage);
   }
 }
-
- 
-
